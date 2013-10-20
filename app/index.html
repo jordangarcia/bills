@@ -1,0 +1,87 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <link rel="stylesheet" href="styles/foundation.min.css">
+        <!-- build:css(.tmp) styles/bills.css -->
+        <link rel="stylesheet" href="styles/bills.css">
+        <!-- endbuild -->
+</head>
+  <body ng-app="billsApp">
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+      <script src="bower_components/es5-shim/es5-shim.js"></script>
+      <script src="bower_components/json3/lib/json3.min.js"></script>
+    <![endif]-->
+
+	<div class="body-overlay" ng-show="overlayShowing == true"></div>
+	<div class="reset-modal" ng-show="resetModalShowing == true" ng-cloak>
+		<p>Are you sure you want to reset?  All data will be lost.</p>
+		<div class="modal-options">
+			<button class="button secondary left" ng-click="hideResetModal()">Cancel</button>
+			<button class="button alert right" ng-click="resetApp()">Reset</button>
+		</div>
+	</div>
+	<header>
+		<h4>Bills with Friends</h4>
+		<button class="button alert left tiny" ng-click="showResetModal()">reset</button>
+	</header>
+    <div id="main" ng-cloak class="container" ng-view=""></div>
+	<footer class="bottom-nav" ng-cloak>
+		<button class="nav-button"
+			ng-class="{selected: mode == 'person'}"
+			ng-click="mode = 'person'"
+		>
+			People
+		</button>
+		<button class="nav-button"
+			ng-class="{selected: mode == 'items'}"
+			ng-click="mode = 'items'"
+		>
+			Items
+		</button>
+		<button class="nav-button"
+			ng-class="{selected: mode == 'summary'}"
+			ng-click="mode = 'summary'"
+		>
+			Summary
+		</button>
+	</footer>
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+     <script>
+       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+       ga('create', 'UA-XXXXX-X');
+       ga('send', 'pageview');
+    </script>
+
+
+    <script src="bower_components/angular/angular.js"></script>
+
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/app.js"></script>
+        <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/controllers/people.js"></script>
+        <script src="scripts/controllers/items.js"></script>
+        <script src="scripts/controllers/summary.js"></script>
+        <script src="scripts/services/appModel.js"></script>
+        <script src="scripts/controllers/personSelector.js"></script>
+        <!-- endbuild -->
+</body>
+</html>

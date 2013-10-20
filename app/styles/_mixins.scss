@@ -1,0 +1,132 @@
+@mixin border-radius($radius) {
+	border-radius: $radius;
+}
+
+@mixin element($bg-color, $margin) {
+	@include border-radius(4px);
+	background-color: $bg-color;
+	border: 1px solid darken($bg-color, 20%);
+	margin: $margin;
+	padding: 5px;
+}
+
+@mixin list($bg-color) {
+	list-style-type: none;
+
+	> li {
+		background-color:  $bg-color;
+		border-top:        1px solid darken($bg-color, 20%);
+		overflow:          hidden;
+		padding:           10px;
+		position:          relative;
+		margin:            0 $app-padding;
+	}
+}
+
+@mixin right-button-container($height) {
+	position:  absolute;
+	top:       0;
+	right:     10px;
+	bottom:    0;
+	margin:    auto;
+	height:    $height;
+
+	button.button {
+		float: right;
+		margin-left: 10px !important;
+	}
+}
+
+@mixin receipt() {
+	margin-left: 1.25em;
+
+	li {
+		overflow:    hidden;
+		padding:     5px 0;
+		border-top:  1px dotted #ccc;
+		&:first-child {
+			border-top: none;
+		}
+
+		&.item {
+			font-size: .8em;
+			font-weight: bold;
+		}
+
+		&.subtotal-item {
+			text-transform: uppercase;
+			font-size: .8em;
+			.name {
+				margin-left: 50%;
+			}
+		}
+		&.total {
+			text-transform: uppercase;
+			font-weight: bold;
+			.name {
+				margin-left: 50%;
+			}
+		}
+	}
+}
+
+@mixin tag($color) {
+	display:       inline-block;
+	margin-right:  5px;
+	padding:       3px 5px;
+	background:    $color;
+	color:         white;
+	border:        1px solid;
+	border-color:  lighten($color, 10%);
+	@include border-radius(4px);
+}
+
+@mixin selectable-tag($color) {
+	@include tag($color);
+
+	&.selected {
+		background-color: darken($color, 30%);
+		border-color: darken($color, 20%);
+	}
+}
+
+@mixin blur($radius) {
+	-webkit-filter: blur($radius);
+	-moz-filter: blur($radius);
+	-o-filter: blur($radius);
+	-ms-filter: blur($radius);
+	filter: blur($radius);
+	opacity: 0.4;
+}
+
+@mixin overlay {
+	position:  absolute;
+	top:       0;
+	left:      0;
+	width:     100%;
+	height:    100%;
+}
+
+@mixin body-overlay {
+	@include overlay;
+	z-index: 1;
+	background: rgba(0,0,0,.15);
+}
+
+@mixin blur-overlay {
+	@include blur(20px);
+	@include overlay;
+}
+
+@mixin hidden-element {
+	position: absolute;
+	left: -9999px;
+}
+
+@mixin bottom-nav($height, $color) {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	background-color: $color;
+	height: $height;
+}

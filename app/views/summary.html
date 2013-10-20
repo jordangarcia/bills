@@ -1,0 +1,97 @@
+<section>
+	<ul class="list">
+		<li
+			ng-repeat="person in people"
+			ng-click="showPerson(person)"
+		>
+			<div class="overflowhidden person-info">
+				<h3 class="left">{{ person.name }}</h3>
+				<h3 class="right">{{ person.total|currency }}</h3>
+			</div>
+			<ul class="receipt"
+				ng-show="selectedPerson == person"
+			>
+				<li class="item"
+					ng-repeat="item in person.items"
+				>
+					<span class="left name">
+						{{ item.name }}
+					</span>	
+					<span class="right price">
+						{{ item.amount|currency }}
+					</span>	
+				</li>
+				<li
+					class="subtotal-item"
+				>
+					<span class="left name">
+						subtotal:
+					</span>
+					<span class="right price">
+						{{ person.subtotal|currency }}
+					</span>
+				</li>
+				<li
+					class="subtotal-item"
+					ng-repeat="grat in person.subtotalGratuities"
+				>
+					<span class="left name">
+						{{ grat.name }}:
+					</span>
+					<span class="right price">
+						{{ grat.amount|currency }}
+					</span>
+				</li>
+				<li
+					class="subtotal-item"
+					ng-repeat="grat in person.totalGratuities"
+				>
+					<span class="left name">
+						{{ grat.name }}:
+					</span>
+					<span class="right price">
+						{{ grat.amount|currency }}
+					</span>
+				</li>
+				<li
+					class="total"
+				>
+					<span class="left name">
+						total:
+					</span>
+					<span class="right price">
+						{{ person.total|currency }}
+					</span>
+				</li>
+			</ul>
+		</li>
+		<li class="total">
+			<h3 class="left">Total:</h3>
+			<h3 class="right">
+				{{ total|currency}}
+			</h3>
+		</li>
+	</ul>
+	<form class="element add-gratuity-form" ng-submit="addSubtotalGratuity()">
+		<label for="">Add Gratuity</label>
+		<input hidenav="true" name="name" class="left" type="text" ng-model="newSubtotal.name" required="required" placeholder="name (eg: tip)" />
+		<input hidenav="true" name="percent" class="right" type="number" ng-model="newSubtotal.percent" step=".01" min=".01" pattern="^\d+(\.|\,)\d{2}$" placeholder="percent (eg: 8.75)" />
+		<button type="submit" class="hidden-element"></button>
+	</form>
+	<ul class="list">
+		<li
+			ng-repeat="grat in subtotalGratuities"
+			swiperight="swiperight"
+		>
+			<div>
+				<form class="add-gratuity-form" ng-submit="$digest()">
+					<input hidenav="true" name="name" class="left" type="text" ng-model="grat.name" required="required">
+					<input hidenav="true" name="percent" class="right" type="number" ng-model="grat.percent" step=".01" min=".01" pattern="^\d+(\.|\,)\d{2}$">
+				</form>
+			</div>
+			<div class="right-button-container show-on-swiperight">
+				<button type="button" class="button alert person-gratuity-button" hm-tap="deleteSubtotalGratuity(grat)">Delete</button>
+			</div>
+		</li>
+	</ul>
+</section>

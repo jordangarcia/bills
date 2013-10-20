@@ -1,0 +1,207 @@
+@import 'reset.scss';
+@import 'mixins.scss';
+
+$min-height:   600px;
+$bg-color:     #ccc;
+$header-bg:    #333;
+$element-bg:   #efefef;
+$tag-bg:       #2ba6cb;
+$element-bg:   #EFEFEF;
+$app-padding:  5px;
+$list-bg:      #fff;
+$bottom-nav-bg: #1399bd;
+$bottom-nav-height: 44px;
+
+
+.overflowhidden {
+	overflow: hidden;
+}
+
+html {
+	height: 100%;
+}
+
+body {
+	padding-top: 44px;
+	height: 100%;
+	background-color: $bg-color;
+	padding-bottom: $bottom-nav-height;
+
+	&.hide-nav {
+
+		footer {
+			display: none;
+		}
+	}
+}
+
+#main {
+	padding-bottom: $bottom-nav-height;
+	overflow: auto;
+	min-height: $min-height;
+}
+
+h3 {
+	font-size: 1em;
+}
+
+header {
+	position:          fixed;
+	z-index:           1;
+	width:             100%;
+	top:               0;
+	background-color:  $header-bg;
+	padding:           7px 5px;
+	margin-bottom:     0;
+	overflow:          hidden;
+	text-align:        center;
+
+
+	h4 {
+		color: white;
+		margin: 0;
+		padding: 0;
+		line-height: 30px;
+		height: 30px;
+		position: absolute;
+		left: 0;
+		right: 0;
+	}
+
+	.button {
+		float:right;
+		margin: 0;
+		height: 30px;
+	}
+}
+
+ul.list {
+	@include list($list-bg);
+}
+
+.element {
+	@include element($element-bg, $app-padding);
+}
+
+.tag {
+	@include tag($tag-bg);
+}
+
+.selectable-tag {
+	@include selectable-tag(lighten($tag-bg, 30%));
+}
+
+ul.receipt {
+	@include receipt;
+}
+
+.swipe-overlay > *:not(.show-on-swiperight) {
+	@include blur(1px);
+}
+
+.show-on-swiperight {
+	display: none;
+
+	&.showing {
+		display: block;
+	}
+}
+
+.right-button-container {
+	@include right-button-container(44px)
+}
+
+.hidden-element {
+	@include hidden-element;
+}
+
+.body-overlay {
+	@include body-overlay;
+}
+
+.add-item-form {
+	.person-selector {
+		margin: 10px 0;
+
+		.selectable-tag {
+			font-size: 1.25em;
+			padding: 5px 10px;
+		}
+	}
+
+	.input-row {
+		overflow: hidden;
+
+		input[name=name] {
+			width: 70%;
+			float: left;
+		}
+
+		input[name=price] {
+			width:       30%;
+			float:       right;
+			text-align:  right;
+		}
+	}
+
+	.add-item.button {
+		display: block;
+		width: 100%;
+	}
+
+	.button.save-item-edit {
+		display: inline-block;
+		width: 65%;
+		float: right;
+	}
+
+	.button.cancel-item-edit {
+		display: inline-block;
+		width: 30%;
+	}
+}
+
+.add-gratuity-form {
+	overflow: hidden;
+
+	input[name=name] {
+		width: 70%;
+	}
+
+	input[name=percent] {
+		width: 30%;
+		text-align: right;
+	}
+}
+
+.bottom-nav {
+	@include bottom-nav($bottom-nav-height, $bottom-nav-bg);
+
+	.nav-button {
+		box-sizing:   border-box;
+		float:        left;
+		width:        33.3%;
+		height:       $bottom-nav-height;
+		display:      block;
+		&.selected {
+			background-color: #2284a1;
+		}
+	}
+}
+
+.reset-modal {
+	top:          50%;
+	left:         50%;
+	margin-left:  -40%;
+	margin-top:   -70px;
+	width:        80%;
+	padding:      10px;
+	background:   white;
+	position:     absolute;
+	z-index:      100;
+	@include border-radius(5px);
+
+	.modal-options {
+		overflow: hidden;
+	}
+}

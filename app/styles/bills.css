@@ -1,0 +1,214 @@
+form, input[type=text], input[type=number], button.button {
+  margin-bottom: 0; }
+
+.ul {
+  list-style-type: none; }
+  .ul ul {
+    list-style-type: none; }
+
+.overflowhidden {
+  overflow: hidden; }
+
+html {
+  height: 100%; }
+
+body {
+  padding-top: 44px;
+  height: 100%;
+  background-color: #cccccc;
+  padding-bottom: 44px; }
+  body.hide-nav footer {
+    display: none; }
+
+#main {
+  padding-bottom: 44px;
+  overflow: auto;
+  min-height: 600px; }
+
+h3 {
+  font-size: 1em; }
+
+header {
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  top: 0;
+  background-color: #333333;
+  padding: 7px 5px;
+  margin-bottom: 0;
+  overflow: hidden;
+  text-align: center; }
+  header h4 {
+    color: white;
+    margin: 0;
+    padding: 0;
+    line-height: 30px;
+    height: 30px;
+    position: absolute;
+    left: 0;
+    right: 0; }
+  header .button {
+    float: right;
+    margin: 0;
+    height: 30px; }
+
+ul.list {
+  list-style-type: none; }
+  ul.list > li {
+    background-color: white;
+    border-top: 1px solid #cccccc;
+    overflow: hidden;
+    padding: 10px;
+    position: relative;
+    margin: 0 5px; }
+
+.element {
+  border-radius: 4px;
+  background-color: #efefef;
+  border: 1px solid #bcbcbc;
+  margin: 5px;
+  padding: 5px; }
+
+.tag {
+  display: inline-block;
+  margin-right: 5px;
+  padding: 3px 5px;
+  background: #2ba6cb;
+  color: white;
+  border: 1px solid;
+  border-color: #4fbada;
+  border-radius: 4px; }
+
+.selectable-tag {
+  display: inline-block;
+  margin-right: 5px;
+  padding: 3px 5px;
+  background: #a3dbec;
+  color: white;
+  border: 1px solid;
+  border-color: #cdebf5;
+  border-radius: 4px; }
+  .selectable-tag.selected {
+    background-color: #2ba6cb;
+    border-color: #4fbada; }
+
+ul.receipt {
+  margin-left: 1.25em; }
+  ul.receipt li {
+    overflow: hidden;
+    padding: 5px 0;
+    border-top: 1px dotted #ccc; }
+    ul.receipt li:first-child {
+      border-top: none; }
+    ul.receipt li.item {
+      font-size: .8em;
+      font-weight: bold; }
+    ul.receipt li.subtotal-item {
+      text-transform: uppercase;
+      font-size: .8em; }
+      ul.receipt li.subtotal-item .name {
+        margin-left: 50%; }
+    ul.receipt li.total {
+      text-transform: uppercase;
+      font-weight: bold; }
+      ul.receipt li.total .name {
+        margin-left: 50%; }
+
+.swipe-overlay > *:not(.show-on-swiperight) {
+  -webkit-filter: blur(1px);
+  -moz-filter: blur(1px);
+  -o-filter: blur(1px);
+  -ms-filter: blur(1px);
+  filter: blur(1px);
+  opacity: 0.4; }
+
+.show-on-swiperight {
+  display: none; }
+  .show-on-swiperight.showing {
+    display: block; }
+
+.right-button-container {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  bottom: 0;
+  margin: auto;
+  height: 44px; }
+  .right-button-container button.button {
+    float: right;
+    margin-left: 10px !important; }
+
+.hidden-element {
+  position: absolute;
+  left: -9999px; }
+
+.body-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.15); }
+
+.add-item-form .person-selector {
+  margin: 10px 0; }
+  .add-item-form .person-selector .selectable-tag {
+    font-size: 1.25em;
+    padding: 5px 10px; }
+.add-item-form .input-row {
+  overflow: hidden; }
+  .add-item-form .input-row input[name=name] {
+    width: 70%;
+    float: left; }
+  .add-item-form .input-row input[name=price] {
+    width: 30%;
+    float: right;
+    text-align: right; }
+.add-item-form .add-item.button {
+  display: block;
+  width: 100%; }
+.add-item-form .button.save-item-edit {
+  display: inline-block;
+  width: 65%;
+  float: right; }
+.add-item-form .button.cancel-item-edit {
+  display: inline-block;
+  width: 30%; }
+
+.add-gratuity-form {
+  overflow: hidden; }
+  .add-gratuity-form input[name=name] {
+    width: 70%; }
+  .add-gratuity-form input[name=percent] {
+    width: 30%;
+    text-align: right; }
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #1399bd;
+  height: 44px; }
+  .bottom-nav .nav-button {
+    box-sizing: border-box;
+    float: left;
+    width: 33.3%;
+    height: 44px;
+    display: block; }
+    .bottom-nav .nav-button.selected {
+      background-color: #2284a1; }
+
+.reset-modal {
+  top: 50%;
+  left: 50%;
+  margin-left: -40%;
+  margin-top: -70px;
+  width: 80%;
+  padding: 10px;
+  background: white;
+  position: absolute;
+  z-index: 100;
+  border-radius: 5px; }
+  .reset-modal .modal-options {
+    overflow: hidden; }

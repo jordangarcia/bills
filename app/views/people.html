@@ -1,0 +1,16 @@
+<section>
+	<form class="element" ng-submit="addPerson()">
+		<input hidenav="true" name="name" type="text" placeholder="add person" ng-model="personName" required="required" autocomplete="off">
+	</form>
+	<ul class="list">
+		<li
+			ng-repeat="person in model.people"
+			swiperight="swiperight"
+		>
+			<h3 class="left">{{ person.name }}</h3>
+			<div class="right-button-container show-on-swiperight">
+				<button type="button" class="button alert person-delete-button" ng-click="deletePerson(person)">Delete</button>
+			</div>
+		</li>
+	</ul>
+</section>

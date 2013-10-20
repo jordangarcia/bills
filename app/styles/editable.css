@@ -1,0 +1,12 @@
+.editable .display-value {
+	display: block;
+}
+.editable .editable-form {
+	display: none;
+}
+.editable.is-editing .display-value {
+	/*display: none;*/
+}
+.editable.is-editing .editable-form {
+	display: block;
+}

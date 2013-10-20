@@ -1,0 +1,53 @@
+<section>
+	<form class="element add-item-form" ng-submit="submitItem()">
+		<div class="input-row">
+			<input hidenav="true" name="name" type="text" placeholder="item" ng-model="currentItem.name" required="required">
+			<input hidenav="true" name="price" type="number" placeholder="price" ng-model="currentItem.price" step=".01" min=".01" pattern="^\d+(\.|\,)\d{2}$">
+		</div>
+		<div class="person-selector">
+			<span class="selectable-tag"
+				ng-repeat="person in people"
+				ng-class="{selected: isSelected(person.id)}"
+				ng-click="selectPerson(person.id)"
+				>
+				{{ person.name }}
+			</span>
+		</div>
+		<button type="submit"
+			class="button add-item"
+			ng-show="itemAction == 'add'">
+			Add Item
+		</button>
+		<button type="button"
+			class="button alert cancel-item-edit"
+			ng-show="itemAction == 'edit'"
+			ng-click="cancelEdit()"
+			>
+			Cancel
+		</button>
+		<button type="submit"
+			class="button save-item-edit"
+			ng-show="itemAction == 'edit'"
+			>
+			Save
+		</button>
+	</form>
+	<ul class="list">
+		<li
+			ng-repeat="item in items"
+			swiperight="swiperight"
+		>
+			<div class="overflowhidden">
+				<h3 class="left">{{ item.name }}</h3>
+				<h3 class="right">{{ item.price|currency }}</h3>
+			</div>
+			<span class="tag" ng-repeat="personId in item.people">
+				{{ getPerson(personId).name }}
+			</span>
+			<div class="right-button-container show-on-swiperight">
+				<button type="button" class="button alert" hm-tap="deleteItem(item)">Delete</button>
+				<button type="button" class="button" hm-tap="editItem(item)">Edit</button>
+			</div>
+		</li>
+	</ul>
+</section>
