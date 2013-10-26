@@ -40,24 +40,9 @@
 	</header>
     <div id="main" ng-cloak class="container" ng-view=""></div>
 	<footer class="bottom-nav" ng-cloak>
-		<button class="nav-button"
-			ng-class="{selected: mode == 'person'}"
-			ng-click="mode = 'person'"
-		>
-			People
-		</button>
-		<button class="nav-button"
-			ng-class="{selected: mode == 'items'}"
-			ng-click="mode = 'items'"
-		>
-			Items
-		</button>
-		<button class="nav-button"
-			ng-class="{selected: mode == 'summary'}"
-			ng-click="mode = 'summary'"
-		>
-			Summary
-		</button>
+		<a class="button nav-button" href="/index.html#/">People</a>
+		<a class="button nav-button" href="/index.html#/items">Items</a>
+		<a class="button nav-button" href="/index.html#/summary">Summary</a>
 	</footer>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -73,6 +58,7 @@
 
 
     <script src="bower_components/angular/angular.js"></script>
+    <script src="scripts/hammer.js"></script>
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
@@ -81,7 +67,7 @@
         <script src="scripts/controllers/items.js"></script>
         <script src="scripts/controllers/summary.js"></script>
         <script src="scripts/services/appModel.js"></script>
-        <script src="scripts/controllers/personSelector.js"></script>
+        <script src="scripts/directives/swiperight.js"></script>
         <!-- endbuild -->
 </body>
 </html>

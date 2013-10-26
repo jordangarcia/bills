@@ -13,6 +13,7 @@ describe('Service: Appmodel', function () {
 
 	describe('#addPerson', function() {
 		it("should add a person object to this.people", function() {
+			Appmode.personId = 1;
 			var person = {
 				name: 'Jordan',
 				items: [],
@@ -21,6 +22,7 @@ describe('Service: Appmodel', function () {
 
 			expect(Appmodel.people[0].name).toBe(person.name);
 			expect(Appmodel.people[0].items).toBe(person.items);
+			expect(Appmodel.people[0].id).toBe(1);
 		});
 
 		it("should increment the personId", function() {

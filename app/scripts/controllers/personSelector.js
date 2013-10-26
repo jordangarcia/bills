@@ -1,5 +1,5 @@
 'use strict';
 
 angular.module('billsApp')
-.controller('PersonselectorCtrl', function ($scope) {
+.controller('PersonSelectorCtrl', function ($scope) {
 });

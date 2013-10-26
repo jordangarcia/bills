@@ -2,7 +2,9 @@
 
 angular.module('billsApp')
 	.factory('appModel', function () {
+		var self;
 		var Model = function() {
+			self = this;
 			this.personId           = 1;
 			this.people             = [];
 			this.items              = [];
@@ -17,21 +19,33 @@ angular.module('billsApp')
 		 * @param {Object} info
 		 */
 		Model.prototype.addPerson = function(info) {
-			info.personId = this.personId;
-			this.personId++;
+			info.id = self.personId;
+			self.personId++;
 
-			this.people.push(info);
+			self.people.push(info);
 		};
 
 		/**
-		 * Adds a person
+		 * Deletes a person
 		 *
 		 * @param {Object} person
 		 */
 		Model.prototype.deletePerson = function(person) {
-			var ind = this.people.indexOf(person);
+			var ind = self.people.indexOf(person);
 			if (ind > -1) {
-				this.people.splice(ind, 1);
+				self.people.splice(ind, 1);
+			}
+		};
+
+		/**
+		 * Delets an item
+		 *
+		 * @param {Object} item
+		 */
+		Model.prototype.deleteItem = function(item) {
+			var ind = self.items.indexOf(item);
+			if (ind > -1) {
+				self.items.splice(ind, 1);
 			}
 		};
 

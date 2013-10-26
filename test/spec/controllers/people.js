@@ -38,6 +38,7 @@ describe('Controller: PeopleCtrl', function () {
 
 			expect(scope.model.addPerson).toHaveBeenCalledWith(info);
 		});
+
 		it('it should set the scope.personName to \'\'', function(){
 			scope.personName = 'jordan'
 

@@ -18,13 +18,25 @@ angular.module('billsApp')
 			}
 		};
 
+		/**
+		 * Checks if a personId is a person in the currentItem
+		 *
+		 * @param {Integer} personId
+		 * @return {Boolean}
+		 */
 		$scope.isSelected = function(personId) {
 			var ind = $scope.currentItem.people.indexOf(personId);
 			return (ind > -1);
 		};
 
+		/**
+		 * Checks if a personId is a person in the currentItem
+		 *
+		 * @param {Integer} personId
+		 * @return {Boolean}
+		 */
 		$scope.addItem = function(item) {
-			$scope.items.push(item);
+			$scope.model.items.push(item);
 		};
 
 		$scope.editItem = function(item) {
@@ -47,15 +59,12 @@ angular.module('billsApp')
 		};
 
 		$scope.submitItem = function() {
-			if ($scope.currentItem.people.length < 1) {
-				return;
-			}
 			if ($scope.itemAction == 'add') {
-				$scope.items.push($scope.currentItem);
+				$scope.model.items.push($scope.currentItem);
 				$scope.resetCurrentItem();
 			} else if ($scope.itemAction == 'edit') {
 				// replace item in array with the current edited values
-				$scope.items[$scope.items.indexOf($scope.editingItem)] = $scope.currentItem;
+				$scope.model.items[$scope.model.items.indexOf($scope.editingItem)] = $scope.currentItem;
 
 				$scope.cancelEdit();
 			}
@@ -63,11 +72,5 @@ angular.module('billsApp')
 
 		$scope.resetCurrentItem();
 
-		$scope.deleteItem = function(item) {
-			var ind = $scope.items.indexOf(item);
-			if (ind > -1) {
-				$scope.items.splice(ind, 1);
-			}
-		};
-
+		$scope.deleteItem = appModel.deleteItem;
 	}]);
