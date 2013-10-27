@@ -10,12 +10,12 @@ describe('Service: Appmodel', function () {
 
 	var person1 = {
 		id: 1,
-		name: 'jordan',
+		name: 'person1',
 	};
 
 	var person2 = {
 		id: 2,
-		name: 'logan',
+		name: 'person2',
 	};
 	
 	var item1 = {
@@ -26,13 +26,13 @@ describe('Service: Appmodel', function () {
 
 	var item2 = {
 		name: 'item2',
-		price: 4.95,
+		price: 5,
 		people: [2],
 	};
 
 	var item3 = {
 		name: 'item3',
-		price: 14.50,
+		price: 14,
 		people: [1, 2],
 	};
 
@@ -93,6 +93,7 @@ describe('Service: Appmodel', function () {
 		describe("when where is a valid model property", function() {
 			describe("when the item is in the model property", function() {
 				it("should splice the item out of the array", function() {
+					spyOn(Appmodel, 'update');
 					var person1 = {
 						id: 1,
 						name: 'jordan',
@@ -106,10 +107,12 @@ describe('Service: Appmodel', function () {
 					Appmodel.delete('people', person1);
 					expect(Appmodel.people.length).toBe(1);
 					expect(Appmodel.people[0]).toBe(person2);
+					expect(Appmodel.update).toHaveBeenCalled();
 				});
 			});
 			describe("when the item is NOT in the model property", function() {
 				it("it should not change the array", function() {
+					spyOn(Appmodel, 'update');
 					var person1 = {
 						id: 1,
 						name: 'jordan',
@@ -127,11 +130,13 @@ describe('Service: Appmodel', function () {
 
 					Appmodel.delete('people', person3);
 					expect(Appmodel.people).toBe(people);
+					expect(Appmodel.update).not.toHaveBeenCalled();
 				});
 			});
 		});
 		describe("when `where` is not a valid model property", function() {
 			it("should be a no-op", function() {
+				spyOn(Appmodel, 'update');
 				var spy = jasmine.createSpy();
 				var person1 = {
 					id: 1,
@@ -143,6 +148,7 @@ describe('Service: Appmodel', function () {
 					spy();
 				}
 				expect(spy).toHaveBeenCalled();
+				expect(Appmodel.update).not.toHaveBeenCalled();
 			});
 		});
 	});
@@ -178,4 +184,127 @@ describe('Service: Appmodel', function () {
 		});
 	});
 
+	describe("#addItem", function() {
+		it("should push the item to Model.items and call Model.update", function() {
+			spyOn(Appmodel, 'update');
+
+			var item = {
+				name: 'item1',
+				price: 10,
+			};
+
+			Appmodel.addItem(item);
+
+			expect(Appmodel.items[0]).toBe(item);
+			expect(Appmodel.update).toHaveBeenCalled();
+		});
+	});
+
+	describe("#replaceItem", function() {
+		it("should replace the item in Model.items and call Model.update", function() {
+			spyOn(Appmodel, 'update');
+
+			var oldItem = {
+				name: 'item1',
+				price: 10,
+			};
+
+			var newItem = {
+				name: 'item2',
+				price: 5,
+			};
+
+			Appmodel.addItem(oldItem);
+			expect(Appmodel.items).toEqual([oldItem]);
+
+			Appmodel.replaceItem(oldItem, newItem);
+
+			expect(Appmodel.items).toEqual([newItem]);
+			expect(Appmodel.update).toHaveBeenCalled();
+		});
+	});
+
+	describe("#update", function() {
+		beforeEach(function() {
+			Appmodel.personId           = dataToLoad.personId;
+			Appmodel.people             = dataToLoad.people;
+			Appmodel.items              = dataToLoad.items;
+			Appmodel.subtotalGratuities = dataToLoad.subtotalGratuities;
+		});
+
+		it("should set the people data correctly", function() {
+			var expected = [
+				{
+					id: 1,
+					name: 'person1',
+					items: [
+						{
+							name: 'item1',
+							amount: 10,
+						},
+						{
+							name: 'item3',
+							amount: 7,
+						}
+					],
+					subtotal: 17,
+					subtotalGratuities: [
+						{
+							name: 'tax',
+							percent: 10,
+							amount: 1.7,
+						},
+					],
+					total: 18.7
+				},
+				{
+					id: 2,
+					name: 'person2',
+					items: [
+						{
+							name: 'item2',
+							amount: 5
+						},
+						{
+							name: 'item3',
+							amount: 7,
+						}
+					],
+					subtotal: 12,
+					subtotalGratuities: [
+						{
+							name: 'tax',
+							percent: 10,
+							amount: 1.2,
+						},
+					],
+					total: 13.2
+				}
+			];
+
+			Appmodel.update();
+
+			expect(Appmodel.people).toEqual(expected);
+		});
+
+		it("should update the Model.subtotal and Model.total", function() {
+			Appmodel.update();
+
+			expect(Appmodel.subtotal).toBe(29);
+			expect(Appmodel.total).toBe(31.9);
+		});
+
+		it("should update the Model.subtotalGratuities", function() {
+			Appmodel.update();
+
+			var expected = [
+				{
+					name: 'tax',
+					percent: 10,
+					amount: 2.9,
+				}
+			];
+			expect(Appmodel.subtotalGratuities).toEqual(expected);
+		});
+	});
 });

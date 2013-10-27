@@ -28,7 +28,30 @@ angular.module('billsApp')
 			self.personId++;
 
 			self.people.push(info);
+			self.update();
 		};
+
+		/**
+		 * Replaces an item in Model.items
+		 *
+		 * @param {Object} oldItem item
+		 * @param {Object} newItem item
+		 */
+		Model.prototype.replaceItem = function(oldItem, newItem) {
+			self.items[self.items.indexOf(oldItem)] = newItem;
+			self.update();
+		};
+
+		/**
+		 * Adds an item and updates
+		 *
+		 * @param {Object} item
+		 */
+		Model.prototype.addItem = function(item) {
+			self.items.push(item);
+			self.update();
+		};
+
 
 		/**
 		 * Deletes an entry from a model property array
@@ -43,6 +66,7 @@ angular.module('billsApp')
 			var ind = self[where].indexOf(entry);
 			if (ind > -1) {
 				self[where].splice(ind, 1);
+				self.update();
 			}
 		};
 
@@ -73,7 +97,77 @@ angular.module('billsApp')
 			self.people             = data.people;
 			self.items              = data.items;
 			self.subtotalGratuities = data.subtotalGratuities;
-		}
+		};
+
+		/**
+		 * Gets person by id
+		 *
+		 * @param {Integer} id
+		 * @param {Object} person
+		 */
+		Model.prototype.getPerson = function(id) {
+			return self.people.filter(function(person){
+				return person.id === id;
+			})[0];
+		};
+
+		/**
+		 * Updates person items mapping and app total/subtotal
+		 */
+		Model.prototype.update = function() {
+			function round(amount) {
+				return Math.round(amount*100)/100;
+			}
+
+			self.total = 0;
+			self.subtotal = 0;
+
+			// reset all meta values on each person
+			self.people.map(function(person) {
+				person.items = [];
+				person.subtotal = 0;
+				person.subtotalGratuities = [];
+				person.total = 0;
+			});
+
+			// calculate subtotals/pretotal for each person
+			self.items.map(function(item) {
+				item.people.map(function(personId) {
+					var personRef = self.getPerson(personId);
+
+					var amount = round(item.price / item.people.length);
+					personRef.subtotal += amount;
+					personRef.total += amount;
+					personRef.items.push({
+						name: item.name,
+						amount: amount,
+					});
+				});
+			});
+
+			// calculate subtotal gratuities and fill in person.pretotal
+			self.people.map(function(person) {
+				self.subtotalGratuities.map(function(grat) {
+					var amount = round(person.subtotal * (grat.percent / 100));
+					person.subtotalGratuities.push({
+						name: grat.name,
+						percent: grat.percent,
+						amount: amount,
+					});
+
+					person.total += amount;
+				});
+
+				self.subtotal += person.subtotal;
+				self.total += person.subtotal;
+			});
+
+			// update the subtotal gratuities amounts
+			self.subtotalGratuities.map(function(grat) {
+				grat.amount = round(self.subtotal * (grat.percent / 100));
+				self.total += grat.amount;
+			});
+		};
 
 		return new Model();
 	}]);

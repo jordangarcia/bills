@@ -159,7 +159,7 @@ describe('Controller: ItemsCtrl', function () {
 
 				scope.currentItem.name = 'edited';
 				scope.currentItem.price = 12;
-				scope.currentItem.people = [1];
+				scope.currentItem.people = [];
 
 				var currentItemRef = scope.currentItem;
 
