@@ -1,8 +1,8 @@
 <section>
 	<ul class="list">
 		<li
-			ng-repeat="person in people"
-			ng-click="showPerson(person)"
+			ng-repeat="person in model.people"
+			ng-click="togglePerson(person)"
 		>
 			<div class="overflowhidden person-info">
 				<h3 class="left">{{ person.name }}</h3>
