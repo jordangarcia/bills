@@ -72,5 +72,10 @@ angular.module('billsApp')
 
 		$scope.resetCurrentItem();
 
-		$scope.deleteItem = appModel.deleteItem;
+		/**
+		 * @param {Object} item
+		 */
+		$scope.deleteItem = function(item) {
+			$scope.model.delete('items', item);
+		};
 	}]);

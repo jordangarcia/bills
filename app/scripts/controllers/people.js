@@ -12,5 +12,7 @@ angular.module('billsApp')
 			$scope.personName = '';
 		};
 
-		$scope.deletePerson = model.deletePerson;
+		$scope.deletePerson = function(person) {
+			$scope.model.deletePerson('people', person);
+		};
 	}]);

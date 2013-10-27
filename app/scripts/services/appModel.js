@@ -1,8 +1,13 @@
 'use strict';
 
+angular.module('LocalStorageModule').value('prefix', 'bwf');
+
 angular.module('billsApp')
-	.factory('appModel', function () {
+	.factory('appModel', ['localStorageService', function (localStorageService) {
 		var self;
+
+		var LOCAL_STORAGE_KEY = 'data';
+
 		var Model = function() {
 			self = this;
 			this.personId           = 1;
@@ -26,28 +31,49 @@ angular.module('billsApp')
 		};
 
 		/**
-		 * Deletes a person
+		 * Deletes an entry from a model property array
 		 *
-		 * @param {Object} person
+		 * @param {String} where
+		 * @param {Object} item
 		 */
-		Model.prototype.deletePerson = function(person) {
-			var ind = self.people.indexOf(person);
+		Model.prototype.delete = function(where, entry) {
+			if (!self[where]) {
+				throw new Error('Invalid model property '+where);
+			}
+			var ind = self[where].indexOf(entry);
 			if (ind > -1) {
-				self.people.splice(ind, 1);
+				self[where].splice(ind, 1);
 			}
 		};
 
 		/**
-		 * Delets an item
-		 *
-		 * @param {Object} item
+		 * Saves the model data
 		 */
-		Model.prototype.deleteItem = function(item) {
-			var ind = self.items.indexOf(item);
-			if (ind > -1) {
-				self.items.splice(ind, 1);
-			}
+		Model.prototype.save = function() {
+			var toSave = {
+				personId:            self.personId,
+				people:              self.people,
+				items:               self.items,
+				subtotalGratuities:  self.subtotalGratuities,
+			};
+
+			localStorageService.set(LOCAL_STORAGE_KEY, toSave);
 		};
 
+		/**
+		 * Loads data from localStorage
+		 */
+		Model.prototype.load = function() {
+			var data = localStorageService.get(LOCAL_STORAGE_KEY);
+			if (!data) {
+				return;
+			}
+
+			self.personId           = data.personId;
+			self.people             = data.people;
+			self.items              = data.items;
+			self.subtotalGratuities = data.subtotalGratuities;
+		}
+
 		return new Model();
-	});
+	}]);

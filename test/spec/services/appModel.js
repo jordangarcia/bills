@@ -5,11 +5,63 @@ describe('Service: Appmodel', function () {
 	// load the service's module
 	beforeEach(module('billsApp'));
 
-	// instantiate service
 	var Appmodel;
-	beforeEach(inject(function (appModel) {
-		Appmodel = appModel;
-	}));
+	var localStorageMock;
+
+	var person1 = {
+		id: 1,
+		name: 'jordan',
+	};
+
+	var person2 = {
+		id: 2,
+		name: 'logan',
+	};
+	
+	var item1 = {
+		name: 'item1',
+		price: 10.00,
+		people: [1],
+	};
+
+	var item2 = {
+		name: 'item2',
+		price: 4.95,
+		people: [2],
+	};
+
+	var item3 = {
+		name: 'item3',
+		price: 14.50,
+		people: [1, 2],
+	};
+
+	var dataToLoad = {
+		personId: 3,
+		people: [person1, person2],
+		items: [item1, item2, item3],
+		subtotalGratuities: [{
+			name: 'tax',
+			percent: 10,
+		}],
+	};
+
+	beforeEach(function() {
+		localStorageMock = {
+			set: jasmine.createSpy(),
+			get: function() {
+				return dataToLoad;
+			},
+		};
+
+		module(function($provide) {
+			$provide.value('localStorageService', localStorageMock);
+		});
+
+		inject(function ($injector) {
+			Appmodel = $injector.get('appModel');
+		});
+	});
 
 	describe('#addPerson', function() {
 		it("should add a person object to this.people", function() {
@@ -92,6 +144,37 @@ describe('Service: Appmodel', function () {
 				}
 				expect(spy).toHaveBeenCalled();
 			});
+		});
+	});
+
+	describe("#save", function() {
+		it("should call localStorage.set with the proper data", function() {
+			var data = {
+				personId: 3,
+				people: ['person1', 'person2'],
+				items: ['item1', 'item2'],
+				subtotalGratuities: [1, 2, 3],
+			};
+
+			Appmodel.people = data.people;
+			Appmodel.personId = data.personId;
+			Appmodel.items = data.items;
+			Appmodel.subtotalGratuities = data.subtotalGratuities;
+
+			Appmodel.save();
+
+			expect(localStorageMock.set).toHaveBeenCalledWith('data', data);
+		});
+	});
+
+	describe("#load", function() {
+		it("should load the data to the model properties", function() {
+			Appmodel.load();
+
+			expect(Appmodel.personId).toBe(dataToLoad.personId);
+			expect(Appmodel.people).toBe(dataToLoad.people);
+			expect(Appmodel.items).toBe(dataToLoad.items);
+			expect(Appmodel.subtotalGratuities).toBe(dataToLoad.subtotalGratuities);
 		});
 	});
 

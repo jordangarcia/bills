@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('billsApp', [])
+angular.module('billsApp', ['LocalStorageModule'])
   .config(['$routeProvider', function ($routeProvider) {
     $routeProvider
       .when('/', {
