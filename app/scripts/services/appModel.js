@@ -3,7 +3,7 @@
 angular.module('LocalStorageModule').value('prefix', 'bwf');
 
 angular.module('billsApp')
-	.factory('appModel', ['localStorageService', function (localStorageService) {
+	.factory('appModel', ['localStorageService', 'AUTOLOAD', function (localStorageService, AUTOLOAD) {
 		var self;
 
 		var LOCAL_STORAGE_KEY = 'data';
@@ -169,5 +169,9 @@ angular.module('billsApp')
 			});
 		};
 
-		return new Model();
+		var model = new Model();
+		if (AUTOLOAD) {
+			model.load();
+		}
+		return model;
 	}]);

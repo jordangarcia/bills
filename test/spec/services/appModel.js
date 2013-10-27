@@ -56,6 +56,7 @@ describe('Service: Appmodel', function () {
 
 		module(function($provide) {
 			$provide.value('localStorageService', localStorageMock);
+			$provide.constant('AUTOLOAD', false);
 		});
 
 		inject(function ($injector) {

@@ -3,7 +3,9 @@
 describe('Controller: PeopleCtrl', function () {
 
 	// load the controller's module
-	beforeEach(module('billsApp'));
+	beforeEach(function() {
+		module('billsApp');
+	});
 
 	var PeopleCtrl;
 	var scope;
@@ -11,6 +13,8 @@ describe('Controller: PeopleCtrl', function () {
 
 	// Initialize the controller and a mock scope
 	beforeEach(inject(function ($controller, $rootScope, appModel) {
+		console.log('beforeEach');
+
 		scope = $rootScope.$new();
 		theAppModel = appModel;
 		PeopleCtrl = $controller('PeopleCtrl', {
@@ -31,7 +35,6 @@ describe('Controller: PeopleCtrl', function () {
 				items: [],
 			};
 
-			console.log(scope.model);
 			spyOn(scope.model, 'addPerson');
 
 			scope.addPerson();

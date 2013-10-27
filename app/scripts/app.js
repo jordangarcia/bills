@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('billsApp', ['hmTouchevents', 'LocalStorageModule'])
+.constant('AUTOLOAD', true)
 .config(['$routeProvider', function ($routeProvider) {
 	$routeProvider
 	.when('/', {
@@ -19,3 +20,4 @@ angular.module('billsApp', ['hmTouchevents', 'LocalStorageModule'])
 		redirectTo: '/'
 	});
 }]);
+
