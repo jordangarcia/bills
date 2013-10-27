@@ -5,9 +5,6 @@ angular.module('billsApp')
 	var listenOnce = function(el, eventName, fn) {
 		var newFn = function(event) {
 			fn(event);
-			removeListener();
-		};
-		var removeListener = function() {
 			el.removeEventListener(eventName, newFn);
 		};
 		el.addEventListener(eventName, newFn);

@@ -46,5 +46,14 @@ describe('Controller: PeopleCtrl', function () {
 
 			expect(scope.personName).toBe('');
 		});
+
+		it("should call model.save", function() {
+			spyOn(scope.model, 'save');
+			scope.personName = 'jordan'
+
+			scope.addPerson();
+
+			expect(scope.model.save).toHaveBeenCalled();
+		});
 	});
 });

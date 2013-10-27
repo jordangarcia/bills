@@ -70,6 +70,14 @@ angular.module('billsApp')
 		};
 
 		/**
+		 * Get person by id
+		 *
+		 * @return {Integer} personId
+		 * @return {Object} person
+		 */
+		$scope.getPerson = $scope.model.getPerson;
+
+		/**
 		 * Handles persisting item based on the itemAction
 		 */
 		$scope.submitItem = function() {

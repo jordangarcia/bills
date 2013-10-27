@@ -10,9 +10,11 @@ angular.module('billsApp')
 				items: []
 			});
 			$scope.personName = '';
+			$scope.model.save();
 		};
 
 		$scope.deletePerson = function(person) {
-			$scope.model.deletePerson('people', person);
+			$scope.model.delete('people', person);
+			$scope.model.save();
 		};
 	}]);
