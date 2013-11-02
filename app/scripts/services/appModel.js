@@ -50,6 +50,15 @@ angular.module('billsApp')
 			self.update();
 		};
 
+		/**
+		 * Adds a subtotal gratuity and updates
+		 *
+		 * @param {Object} grat
+		 */
+		Model.prototype.addSubtotalGratuity = function(grat) {
+			self.subtotalGratuities.push(grat);
+			self.update();
+		}
 
 		/**
 		 * Deletes an entry from a model property array
@@ -95,6 +104,8 @@ angular.module('billsApp')
 			self.people             = data.people;
 			self.items              = data.items;
 			self.subtotalGratuities = data.subtotalGratuities;
+
+			self.update();
 		};
 
 		/**
@@ -172,6 +183,7 @@ angular.module('billsApp')
 
 				self.subtotal += person.subtotal;
 				self.total += person.subtotal;
+				console.log('total', self.total);
 			});
 
 			// update the subtotal gratuities amounts
@@ -179,6 +191,8 @@ angular.module('billsApp')
 				grat.amount = round(self.subtotal * (grat.percent / 100));
 				self.total += grat.amount;
 			});
+
+			console.log('final total', self.total);
 		};
 
 		var model = new Model();

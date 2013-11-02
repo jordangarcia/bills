@@ -67,6 +67,7 @@ angular.module('billsApp')
 		 */
 		$scope.deleteItem = function(item) {
 			$scope.model.delete('items', item);
+			$scope.model.save();
 		};
 
 		/**
@@ -88,6 +89,8 @@ angular.module('billsApp')
 				$scope.model.replaceItem($scope.editingItem, $scope.currentItem);
 				$scope.cancelEdit();
 			}
+
+			$scope.model.save();
 		};
 
 		$scope.resetCurrentItem();

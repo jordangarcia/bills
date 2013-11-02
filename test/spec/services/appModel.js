@@ -187,6 +187,13 @@ describe('Service: Appmodel', function () {
 			expect(Appmodel.items).toBe(dataToLoad.items);
 			expect(Appmodel.subtotalGratuities).toBe(dataToLoad.subtotalGratuities);
 		});
+
+		it("should call Model.update()", function() {
+			spyOn(Appmodel, 'update');
+			Appmodel.load();
+
+			expect(Appmodel.update).toHaveBeenCalled();
+		});
 	});
 
 	describe("#addItem", function() {

@@ -3,7 +3,12 @@
 describe('Controller: ItemsCtrl', function () {
 
 	// load the controller's module
-	beforeEach(module('billsApp'));
+	beforeEach(function() {
+		module('billsApp');
+		module(function($provide) {
+			$provide.constant('AUTOLOAD', false);
+		});
+	});
 
 	var ItemsCtrl;
 	var scope;

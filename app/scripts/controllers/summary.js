@@ -20,11 +20,12 @@ angular.module('billsApp')
 	};
 
 	$scope.addSubtotalGratuity = function() {
-		$scope.model.subtotalGratuities.push($scope.newSubtotal);
+		$scope.model.addSubtotalGratuity($scope.newSubtotal);
 		$scope.newSubtotal = {
 			name: '',
 			percent: 0,
 		};
+		$scope.model.save();
 	};
 
 	/**
@@ -32,5 +33,6 @@ angular.module('billsApp')
 	 */
 	$scope.deleteSubtotalGratuity = function(grat) {
 		$scope.model.delete("subtotalGratuities", grat);
+		$scope.model.save();
 	};
 }]);

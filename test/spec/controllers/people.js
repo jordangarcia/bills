@@ -5,6 +5,9 @@ describe('Controller: PeopleCtrl', function () {
 	// load the controller's module
 	beforeEach(function() {
 		module('billsApp');
+		module(function($provide) {
+			$provide.constant("AUTOLOAD", false);
+		});
 	});
 
 	var PeopleCtrl;

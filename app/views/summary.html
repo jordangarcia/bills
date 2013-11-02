@@ -68,7 +68,7 @@
 		<li class="total">
 			<h3 class="left">Total:</h3>
 			<h3 class="right">
-				{{ total|currency}}
+				{{ model.total|currency}}
 			</h3>
 		</li>
 	</ul>
@@ -80,7 +80,7 @@
 	</form>
 	<ul class="list">
 		<li
-			ng-repeat="grat in subtotalGratuities"
+			ng-repeat="grat in model.subtotalGratuities"
 			swiperight="swiperight"
 		>
 			<div>
