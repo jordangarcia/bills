@@ -8,6 +8,8 @@ describe('Service: Appmodel', function () {
 	var Appmodel;
 	var localStorageMock;
 
+	var LOCAL_STORAGE_KEY = 'data';
+
 	var person1 = {
 		id: 1,
 		name: 'person1',
@@ -52,11 +54,13 @@ describe('Service: Appmodel', function () {
 			get: function() {
 				return dataToLoad;
 			},
+			remove: jasmine.createSpy(),
 		};
 
 		module(function($provide) {
 			$provide.value('localStorageService', localStorageMock);
 			$provide.constant('AUTOLOAD', false);
+			$provide.constant('LOCAL_STORAGE_KEY', LOCAL_STORAGE_KEY);
 		});
 
 		inject(function ($injector) {
@@ -222,6 +226,32 @@ describe('Service: Appmodel', function () {
 
 			expect(Appmodel.items).toEqual([newItem]);
 			expect(Appmodel.update).toHaveBeenCalled();
+		});
+	});
+
+	describe("#reset", function() {
+		beforeEach(function() {
+			Appmodel.personId           = dataToLoad.personId;
+			Appmodel.people             = dataToLoad.people;
+			Appmodel.items              = dataToLoad.items;
+			Appmodel.subtotalGratuities = dataToLoad.subtotalGratuities;
+			Appmodel.update();
+		});
+
+		it("should reset all data on the appModel", function() {
+			Appmodel.reset();
+
+			expect(Appmodel.personId).toBe(1);
+			expect(Appmodel.subtotal).toBe(0);
+			expect(Appmodel.total).toBe(0);
+			expect(Appmodel.people).toEqual([]);
+			expect(Appmodel.items).toEqual([]);
+			expect(Appmodel.subtotalGratuities).toEqual([]);
+		});
+
+		it("should call localStorageService.remove with the LOCAL_STORAGE_KEY", function() {
+			Appmodel.reset();
+			expect(localStorageMock.remove).toHaveBeenCalledWith(LOCAL_STORAGE_KEY);
 		});
 	});
 

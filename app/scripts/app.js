@@ -2,6 +2,7 @@
 
 angular.module('billsApp', ['hmTouchevents', 'LocalStorageModule'])
 .constant('AUTOLOAD', true)
+.constant('LOCAL_STORAGE_KEY', 'data')
 .config(['$routeProvider', function ($routeProvider) {
 	$routeProvider
 	.when('/', {

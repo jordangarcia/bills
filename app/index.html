@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="styles/bills.css">
         <!-- endbuild -->
 </head>
-  <body ng-app="billsApp">
+  <body ng-app="billsApp" ng-controller="MainCtrl">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -26,8 +26,8 @@
       <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
 
-	<div class="body-overlay" ng-show="overlayShowing == true"></div>
-	<div class="reset-modal" ng-show="resetModalShowing == true" ng-cloak>
+	<div class="body-overlay overlay"></div>
+	<div class="reset-modal" ng-show="modalShowing == true" ng-cloak>
 		<p>Are you sure you want to reset?  All data will be lost.</p>
 		<div class="modal-options">
 			<button class="button secondary left" ng-click="hideResetModal()">Cancel</button>
@@ -70,6 +70,8 @@
         <script src="scripts/controllers/summary.js"></script>
         <script src="scripts/services/appModel.js"></script>
         <script src="scripts/directives/swiperight.js"></script>
+        <script src="scripts/directives/dialog.js"></script>
+        <script src="scripts/directives/overlay.js"></script>
         <!-- endbuild -->
 </body>
 </html>

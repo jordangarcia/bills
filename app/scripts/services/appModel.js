@@ -3,10 +3,8 @@
 angular.module('LocalStorageModule').value('prefix', 'bwf');
 
 angular.module('billsApp')
-	.factory('appModel', ['localStorageService', 'AUTOLOAD', function (localStorageService, AUTOLOAD) {
+	.factory('appModel', ['localStorageService', 'AUTOLOAD', 'LOCAL_STORAGE_KEY', function (localStorageService, AUTOLOAD, LOCAL_STORAGE_KEY) {
 		var self;
-
-		var LOCAL_STORAGE_KEY = 'data';
 
 		var Model = function() {
 			self = this;
@@ -97,6 +95,20 @@ angular.module('billsApp')
 			self.people             = data.people;
 			self.items              = data.items;
 			self.subtotalGratuities = data.subtotalGratuities;
+		};
+
+		/**
+		 * Resets all data and clears local storage
+		 */
+		Model.prototype.reset = function() {
+			self.personId           = 1;
+			self.people             = [];
+			self.items              = [];
+			self.subtotalGratuities = [];
+
+			self.update();
+
+			localStorageService.remove(LOCAL_STORAGE_KEY);
 		};
 
 		/**
