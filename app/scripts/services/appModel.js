@@ -195,7 +195,6 @@ angular.module('billsApp')
 
 				self.subtotal += person.subtotal;
 				self.total += person.subtotal;
-				console.log('total', self.total);
 			});
 
 			// update the subtotal gratuities amounts
@@ -203,8 +202,6 @@ angular.module('billsApp')
 				grat.amount = round(self.subtotal * (grat.percent / 100));
 				self.total += grat.amount;
 			});
-
-			console.log('final total', self.total);
 		};
 
 		var model = new Model();

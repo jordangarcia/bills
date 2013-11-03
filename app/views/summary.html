@@ -50,11 +50,37 @@
 				</li>
 			</ul>
 		</li>
-		<li class="total">
-			<h3 class="left">Total:</h3>
-			<h3 class="right">
-				{{ model.total|currency}}
-			</h3>
+		<li class="total"
+			ng-click="togglePerson('total')"
+		>
+			<div class="overflowhidden person-info">
+				<h3 class="left">Total:</h3>
+				<h3 class="right">
+					{{ model.total|currency}}
+				</h3>
+			</div>
+			<ul class="receipt"
+				ng-show="selectedPerson == 'total'">
+				<li class="subtotal-item">
+					<span class="left name">
+						subtotal:
+					</span>
+					<span class="right price">
+						{{ model.subtotal|currency }}
+					</span>
+				</li>
+				<li
+					class="subtotal-item"
+					ng-repeat="grat in model.subtotalGratuities"
+				>
+					<span class="left name">
+						{{ grat.name }} ({{ grat.percent }}%):
+					</span>
+					<span class="right price">
+						{{ grat.amount|currency }}
+					</span>
+				</li>
+			</ul>
 		</li>
 	</ul>
 	<form class="element add-gratuity-form" ng-submit="addSubtotalGratuity()">
