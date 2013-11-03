@@ -21,9 +21,7 @@
 						{{ item.amount|currency }}
 					</span>	
 				</li>
-				<li
-					class="subtotal-item"
-				>
+				<li class="subtotal-item">
 					<span class="left name">
 						subtotal:
 					</span>
@@ -36,26 +34,13 @@
 					ng-repeat="grat in person.subtotalGratuities"
 				>
 					<span class="left name">
-						{{ grat.name }}:
+						{{ grat.name }} ({{ grat.percent }}%):
 					</span>
 					<span class="right price">
 						{{ grat.amount|currency }}
 					</span>
 				</li>
-				<li
-					class="subtotal-item"
-					ng-repeat="grat in person.totalGratuities"
-				>
-					<span class="left name">
-						{{ grat.name }}:
-					</span>
-					<span class="right price">
-						{{ grat.amount|currency }}
-					</span>
-				</li>
-				<li
-					class="total"
-				>
+				<li class="total">
 					<span class="left name">
 						total:
 					</span>
@@ -83,14 +68,25 @@
 			ng-repeat="grat in model.subtotalGratuities"
 			swiperight="swiperight"
 		>
-			<div>
-				<form class="add-gratuity-form" ng-submit="$digest()">
-					<input hidenav="true" name="name" class="left" type="text" ng-model="grat.name" required="required">
-					<input hidenav="true" name="percent" class="right" type="number" ng-model="grat.percent" step=".01" min=".01" pattern="^\d+(\.|\,)\d{2}$">
+			<div ng-show="editingGrat == grat">
+				<form class="add-gratuity-form" ng-submit="submitEdit()">
+					<div class="overflowhidden">
+						<input hidenav="true" name="name" class="left" type="text" ng-model="updatedGrat.name" required="required" />
+						<input hidenav="true" name="percent" class="right" type="number" ng-model="updatedGrat.percent" step=".01" min=".01" pattern="^\d+(\.|\,)\d{2}$" />
+					</div>
+					<button type="submit"
+						class="button full-width-button">
+						Save
+					</button>
 				</form>
+			</div>
+			<div ng-show="editingGrat != grat">
+				<h3 class="left">{{ grat.name }}</h3>
+				<h3 class="right">{{ grat.percent }}%</h3>
 			</div>
 			<div class="right-button-container show-on-swiperight">
 				<button type="button" class="button alert person-gratuity-button" hm-tap="deleteSubtotalGratuity(grat)">Delete</button>
+				<button type="button" class="button" ng-click="editGratuity(grat)">Edit</button>
 			</div>
 		</li>
 	</ul>

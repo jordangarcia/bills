@@ -61,6 +61,7 @@ describe('Service: Appmodel', function () {
 			$provide.value('localStorageService', localStorageMock);
 			$provide.constant('AUTOLOAD', false);
 			$provide.constant('LOCAL_STORAGE_KEY', LOCAL_STORAGE_KEY);
+			$provide.value('defaultGratuities', false);
 		});
 
 		inject(function ($injector) {

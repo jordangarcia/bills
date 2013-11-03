@@ -7,6 +7,7 @@ describe('Controller: ItemsCtrl', function () {
 		module('billsApp');
 		module(function($provide) {
 			$provide.constant('AUTOLOAD', false);
+			$provide.value('defaultGratuities', false);
 		});
 	});
 

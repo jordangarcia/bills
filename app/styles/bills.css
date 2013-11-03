@@ -212,3 +212,8 @@ ul.receipt {
   border-radius: 5px; }
   .reset-modal .modal-options {
     overflow: hidden; }
+
+.full-width-button {
+  width: 100%;
+  display: block;
+  margin-top: .5em; }

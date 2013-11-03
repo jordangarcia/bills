@@ -7,6 +7,7 @@ describe('Controller: SummaryCtrl', function () {
 		module('billsApp');
 		module(function($provide) {
 			$provide.constant('AUTOLOAD', false);
+			$provide.value('defaultGratuities', false);
 		});
 	});
 
@@ -98,5 +99,30 @@ describe('Controller: SummaryCtrl', function () {
 
 			expect(scope.newSubtotal).toEqual(resetGrat);
 		});
+	});
+
+	describe("#editGratuity", function() {
+		it("should set scope.editingGratuity to the current", function() {
+			var grat = {
+				name: 'test',
+				percent: 10
+			};
+
+			scope.editGratuity(grat);
+
+			expect(scope.editingGrat).toBe(grat);
+		});
+		it("should copy grat to scope.updatedGrat", function() {
+			var grat = {
+				name: 'test',
+				percent: 10
+			};
+
+			scope.editGratuity(grat);
+
+			expect(scope.currentGrat).not.toBe(grat);
+			expect(scope.updatedGrat).toEqual(grat);
+		});
+
 	});
 });

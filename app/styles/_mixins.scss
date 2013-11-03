@@ -130,3 +130,9 @@
 	background-color: $color;
 	height: $height;
 }
+
+@mixin full-width-button {
+	width: 100%;
+	display: block;
+	margin-top: .5em;
+}

@@ -3,20 +3,16 @@
 angular.module('LocalStorageModule').value('prefix', 'bwf');
 
 angular.module('billsApp')
-	.factory('appModel', ['localStorageService', 'AUTOLOAD', 'LOCAL_STORAGE_KEY', 'TAX_PERCENT', function (localStorageService, AUTOLOAD, LOCAL_STORAGE_KEY, TAX_PERCENT) {
+	.factory('appModel', ['localStorageService', 'AUTOLOAD', 'LOCAL_STORAGE_KEY', 'defaultGratuities', function (localStorageService, AUTOLOAD, LOCAL_STORAGE_KEY, defaultGratuities) {
 		var self;
+		var defaultGratuities = defaultGratuities || [];
 
 		var Model = function() {
 			self = this;
 			this.personId           = 1;
 			this.people             = [];
 			this.items              = [];
-			this.subtotalGratuities = [
-				{
-					name: 'Tax',
-					percent: TAX_PERCENT
-				}
-			];
+			this.subtotalGratuities = defaultGratuities;
 			this.subtotal           = 0;
 			this.total              = 0;
 		};
@@ -62,6 +58,17 @@ angular.module('billsApp')
 		 */
 		Model.prototype.addSubtotalGratuity = function(grat) {
 			self.subtotalGratuities.push(grat);
+			self.update();
+		};
+
+		/**
+		 * Replace grat entry and updates
+		 *
+		 * @param {Object} oldGrat
+		 * @param {Object} newGrat
+		 */
+		Model.prototype.replaceSubtotalGratuity = function(oldGrat, newGrat) {
+			self.subtotalGratuities[self.subtotalGratuities.indexOf(oldGrat)] = newGrat;
 			self.update();
 		}
 
@@ -120,12 +127,7 @@ angular.module('billsApp')
 			self.personId           = 1;
 			self.people             = [];
 			self.items              = [];
-			self.subtotalGratuities = [
-				{
-					name: 'Tax',
-					percent: TAX_PERCENT
-				}
-			];
+			self.subtotalGratuities = defaultGratuities;
 
 			self.update();
 
