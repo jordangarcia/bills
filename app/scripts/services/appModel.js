@@ -3,7 +3,7 @@
 angular.module('LocalStorageModule').value('prefix', 'bwf');
 
 angular.module('billsApp')
-	.factory('appModel', ['localStorageService', 'AUTOLOAD', 'LOCAL_STORAGE_KEY', function (localStorageService, AUTOLOAD, LOCAL_STORAGE_KEY) {
+	.factory('appModel', ['localStorageService', 'AUTOLOAD', 'LOCAL_STORAGE_KEY', 'TAX_PERCENT', function (localStorageService, AUTOLOAD, LOCAL_STORAGE_KEY, TAX_PERCENT) {
 		var self;
 
 		var Model = function() {
@@ -11,7 +11,12 @@ angular.module('billsApp')
 			this.personId           = 1;
 			this.people             = [];
 			this.items              = [];
-			this.subtotalGratuities = [];
+			this.subtotalGratuities = [
+				{
+					name: 'Tax',
+					percent: TAX_PERCENT
+				}
+			];
 			this.subtotal           = 0;
 			this.total              = 0;
 		};
@@ -115,7 +120,12 @@ angular.module('billsApp')
 			self.personId           = 1;
 			self.people             = [];
 			self.items              = [];
-			self.subtotalGratuities = [];
+			self.subtotalGratuities = [
+				{
+					name: 'Tax',
+					percent: TAX_PERCENT
+				}
+			];
 
 			self.update();
 

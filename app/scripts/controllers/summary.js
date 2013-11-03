@@ -35,4 +35,6 @@ angular.module('billsApp')
 		$scope.model.delete("subtotalGratuities", grat);
 		$scope.model.save();
 	};
+
+	$scope.$parent.section = 'summary';
 }]);

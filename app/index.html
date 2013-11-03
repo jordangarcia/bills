@@ -38,11 +38,11 @@
 		<h4>Bills with Friends</h4>
 		<button class="button alert left tiny" ng-click="showResetModal()">reset</button>
 	</header>
-    <div id="main" ng-cloak class="container" ng-view=""></div>
+    <div id="main" ng-cloak class="container" ng-view></div>
 	<footer class="bottom-nav" ng-cloak>
-		<a class="button nav-button" href="/index.html#/">People</a>
-		<a class="button nav-button" href="/index.html#/items">Items</a>
-		<a class="button nav-button" href="/index.html#/summary">Summary</a>
+		<a class="button nav-button" href="/index.html#/" ng-class="{selected: section == 'people'}">People</a>
+		<a class="button nav-button" href="/index.html#/items" ng-class="{selected: section == 'items'}">Items</a>
+		<a class="button nav-button" href="/index.html#/summary" ng-class="{selected: section == 'summary'}">Summary</a>
 	</footer>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->

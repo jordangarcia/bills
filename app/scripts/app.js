@@ -3,6 +3,7 @@
 angular.module('billsApp', ['hmTouchevents', 'LocalStorageModule'])
 .constant('AUTOLOAD', true)
 .constant('LOCAL_STORAGE_KEY', 'data')
+.constant('TAX_PERCENT', 8.75)
 .config(['$routeProvider', function ($routeProvider) {
 	$routeProvider
 	.when('/', {

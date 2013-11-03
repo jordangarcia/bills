@@ -5,6 +5,7 @@ angular.module('billsApp')
 	$scope.model          = appModel;
 	$scope.overlayShowing = false;
 	$scope.modalShowing   = false;
+	$scope.section        = null;
 
 	$scope.showResetModal = function() {
 		this.modalShowing = true;

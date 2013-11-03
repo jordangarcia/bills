@@ -17,4 +17,6 @@ angular.module('billsApp')
 			$scope.model.delete('people', person);
 			$scope.model.save();
 		};
+
+		$scope.$parent.section = 'people';
 	}]);

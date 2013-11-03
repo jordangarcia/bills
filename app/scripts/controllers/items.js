@@ -94,4 +94,6 @@ angular.module('billsApp')
 		};
 
 		$scope.resetCurrentItem();
+
+		$scope.$parent.section = 'items';
 	}]);
