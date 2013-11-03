@@ -18,28 +18,20 @@ module.exports = function (grunt) {
       dist: 'dist'
     },
     watch: {
-      coffee: {
-        files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
-        tasks: ['coffee:dist']
-      },
-      coffeeTest: {
-        files: ['test/spec/{,*/}*.coffee'],
-        tasks: ['coffee:test']
-      },
       styles: {
-        files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
-        tasks: ['copy:styles', 'autoprefixer']
-      },
-      livereload: {
-        options: {
-          livereload: '<%= connect.options.livereload %>'
-        },
-        files: [
-          '<%= yeoman.app %>/{,*/}*.html',
-          '.tmp/styles/{,*/}*.css',
-          '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
-          '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
-        ]
+        files: ['<%= yeoman.app %>/styles/{,*/}*.scss'],
+        tasks: ['sass', 'copy:styles', 'autoprefixer']
+      //},
+      //livereload: {
+        //options: {
+          //livereload: '<%= connect.options.livereload %>'
+        //},
+        //files: [
+          //'<%= yeoman.app %>/{,*/}*.html',
+          //'.tmp/styles/{,*/}*.css',
+          //'{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
+          //'<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+        //]
       }
     },
     autoprefixer: {
@@ -106,30 +98,6 @@ module.exports = function (grunt) {
         'Gruntfile.js',
         '<%= yeoman.app %>/scripts/{,*/}*.js'
       ]
-    },
-    coffee: {
-      options: {
-        sourceMap: true,
-        sourceRoot: ''
-      },
-      dist: {
-        files: [{
-          expand: true,
-          cwd: '<%= yeoman.app %>/scripts',
-          src: '{,*/}*.coffee',
-          dest: '.tmp/scripts',
-          ext: '.js'
-        }]
-      },
-      test: {
-        files: [{
-          expand: true,
-          cwd: 'test/spec',
-          src: '{,*/}*.coffee',
-          dest: '.tmp/spec',
-          ext: '.js'
-        }]
-      }
     },
     // not used since Uglify task does concat,
     // but still available if needed
@@ -248,15 +216,12 @@ module.exports = function (grunt) {
     },
     concurrent: {
       server: [
-        'coffee:dist',
         'copy:styles'
       ],
       test: [
-        'coffee',
         'copy:styles'
       ],
       dist: [
-        'coffee',
         'copy:styles',
         'imagemin',
         'svgmin',
@@ -292,7 +257,14 @@ module.exports = function (grunt) {
           ]
         }
       }
-    }
+    },
+	sass: {
+		dist: {
+			files: {
+				'app/styles/bills.css': 'app/styles/bills.scss'
+			}
+		}
+	}
   });
 
   grunt.registerTask('server', function (target) {
