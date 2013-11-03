@@ -29,7 +29,7 @@ h3 {
   font-size: 1em; }
 
 header {
-  position: fixed;
+  position: absolute;
   z-index: 1;
   width: 100%;
   top: 0;

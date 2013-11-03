@@ -46,33 +46,7 @@ h3 {
 }
 
 header {
-	position:          fixed;
-	z-index:           1;
-	width:             100%;
-	top:               0;
-	background-color:  $header-bg;
-	padding:           7px 5px;
-	margin-bottom:     0;
-	overflow:          hidden;
-	text-align:        center;
-
-
-	h4 {
-		color: white;
-		margin: 0;
-		padding: 0;
-		line-height: 30px;
-		height: 30px;
-		position: absolute;
-		left: 0;
-		right: 0;
-	}
-
-	.button {
-		float:right;
-		margin: 0;
-		height: 30px;
-	}
+	@include header($header-bg);
 }
 
 ul.list {

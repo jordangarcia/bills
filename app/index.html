@@ -3,28 +3,28 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Bills With Friends</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0">
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Bills With Friends</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0">
+	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-        <link rel="stylesheet" href="styles/foundation.min.css">
-        <!-- build:css(.tmp) styles/bills.css -->
-        <link rel="stylesheet" href="styles/bills.css">
-        <!-- endbuild -->
+	<link rel="stylesheet" href="styles/foundation.min.css">
+	<!-- build:css(.tmp) styles/bills.css -->
+	<link rel="stylesheet" href="styles/bills.css">
+	<!-- endbuild -->
 </head>
-  <body ng-app="billsApp" ng-controller="MainCtrl">
-    <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
+<body ng-app="billsApp" ng-controller="MainCtrl">
+	<!--[if lt IE 7]>
+	  <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+	<![endif]-->
 
-    <!--[if lt IE 9]>
-      <script src="bower_components/es5-shim/es5-shim.js"></script>
-      <script src="bower_components/json3/lib/json3.min.js"></script>
-    <![endif]-->
+	<!--[if lt IE 9]>
+	  <script src="bower_components/es5-shim/es5-shim.js"></script>
+	  <script src="bower_components/json3/lib/json3.min.js"></script>
+	<![endif]-->
 
 	<div class="body-overlay overlay"></div>
 	<div class="reset-modal" ng-show="modalShowing == true" ng-cloak>
@@ -38,39 +38,40 @@
 		<h4>Bills with Friends</h4>
 		<button class="button alert left tiny" ng-click="showResetModal()">reset</button>
 	</header>
-    <div id="main" ng-cloak class="container" ng-view></div>
+	<div id="main" ng-cloak class="container" ng-view></div>
 	<footer class="bottom-nav" ng-cloak>
 		<a class="button nav-button" href="/index.html#/" ng-class="{selected: section == 'people'}">People</a>
 		<a class="button nav-button" href="/index.html#/items" ng-class="{selected: section == 'items'}">Items</a>
 		<a class="button nav-button" href="/index.html#/summary" ng-class="{selected: section == 'summary'}">Summary</a>
 	</footer>
 
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-     <script>
-       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	<!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
 		ga('create', 'UA-45406910-1', 'billwithfriends.net');
 		ga('send', 'pageview');
-    </script>
+	</script>
 
 
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-local-storage/angular-local-storage.js"></script>
-    <script src="bower_components/hammer.js/dist/hammer.min.js"></script>
-    <script src="bower_components/angular-hammer/angular-hammer.js"></script>
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-local-storage/angular-local-storage.js"></script>
+	<script src="bower_components/hammer.js/dist/hammer.min.js"></script>
+	<script src="bower_components/angular-hammer/angular-hammer.js"></script>
 
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/people.js"></script>
-        <script src="scripts/controllers/items.js"></script>
-        <script src="scripts/controllers/summary.js"></script>
-        <script src="scripts/services/appModel.js"></script>
-        <script src="scripts/directives/swiperight.js"></script>
-        <script src="scripts/directives/overlay.js"></script>
-        <!-- endbuild -->
+	<!-- build:js({.tmp,app}) scripts/scripts.js -->
+	<script src="scripts/app.js"></script>
+	<script src="scripts/controllers/main.js"></script>
+	<script src="scripts/controllers/people.js"></script>
+	<script src="scripts/controllers/items.js"></script>
+	<script src="scripts/controllers/summary.js"></script>
+	<script src="scripts/services/appModel.js"></script>
+	<script src="scripts/directives/swiperight.js"></script>
+	<script src="scripts/directives/overlay.js"></script>
+	<script src="scripts/directives/focus.js"></script>
+	<!-- endbuild -->
 </body>
 </html>
