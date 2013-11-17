@@ -84,10 +84,14 @@
 		</li>
 	</ul>
 	<form class="element add-gratuity-form" ng-submit="addSubtotalGratuity()">
-		<label for="">Add Gratuity</label>
-		<input hidenav="true" name="name" class="left" type="text" ng-model="newSubtotal.name" required="required" placeholder="name (eg: tip)" />
-		<input hidenav="true" name="percent" class="right" type="number" ng-model="newSubtotal.percent" step=".01" min=".01" pattern="^\d+(\.|\,)\d{2}$" placeholder="percent (eg: 8.75)" />
-		<button type="submit" class="hidden-element"></button>
+		<div class="overflowhidden">
+			<input hidenav="true" name="name" class="left" type="text" ng-model="newSubtotal.name" required="required" placeholder="name (eg: tip)" />
+			<input hidenav="true" name="percent" class="right" type="number" ng-model="newSubtotal.percent" step=".01" min=".01" pattern="^\d+(\.|\,)\d{2}$" placeholder="percent (eg: 8.75)" />
+		</div>
+		<button type="submit"
+			class="button full-width-button">
+			Add Gratuity
+		</button>
 	</form>
 	<ul class="list">
 		<li
