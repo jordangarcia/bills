@@ -1,7 +1,17 @@
 {
-  "name": "bills",
-  "version": "0.0.0",
-  "dependencies": {},
+  "name": "Bills With Friends",
+  "version": "0.2.0",
+  "repository": "http://github.com/jordangarcia/bills.git",
+  "dependencies": {
+    "async": "~0.2.9",
+    "mkdirp": "~0.3.5",
+    "trumpet": "~1.6.3",
+    "concat-stream": "~1.2.0",
+    "underscore": "~1.5.2",
+    "through": "~2.3.4",
+    "node-sass": "~0.7.0",
+    "connect": "~2.11.0"
+  },
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-copy": "~0.4.1",
@@ -43,6 +53,9 @@
     "node": ">=0.8.0"
   },
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt test",
+    "start": "npm run start-dev",
+    "start-dev": "node start.js dev",
+    "start-prod": "node start.js prod"
   }
 }
