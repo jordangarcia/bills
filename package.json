@@ -55,6 +55,7 @@
   },
   "scripts": {
     "test": "grunt test",
+    "build-dev": "node build.js dev app/index.html",
     "start": "npm run start-dev",
     "start-dev": "node start.js dev",
     "start-prod": "node start.js prod"

@@ -3,18 +3,9 @@ var path = require('path');
 var mkdirp = require('mkdirp');
 var async = require('async');
 var sassify = require('./lib/sass-and-replace');
-var concatCss = require('./lib/concat-css');
 var assets = require('./lib/asset-parser');
 var replaceExt = require('./lib/replace-ext');
 var rimraf = require('rimraf');
-
-function createOutputDir(dir, callback) {
-	async.parallel([
-		mkdirp.bind(null, dir),
-		mkdirp.bind(null, dir + '/css'),
-		mkdirp.bind(null, dir + '/js')
-	], callback);
-}
 
 function getAssetPath(src, root) {
 	var filename = path.join(src);
@@ -24,19 +15,29 @@ function getAssetPath(src, root) {
 	return filename;
 }
 
-function buildDev(inputFile, outputRoot, appRoot) {
-	function cssOutputFilename(outputRoot, src) {
-		return replaceExt(getAssetPath(src, outputRoot), /scss|sass/i, 'css');
-	}
+function cssOutputFilename(outputRoot, src) {
+	return replaceExt(getAssetPath(src, outputRoot), /scss|sass/i, 'css');
+}
 
+function buildDev(inputFile, outputRoot, appRoot) {
 	var cssOutputFilenameAbsolute = cssOutputFilename.bind(null, outputRoot);
 
-	function cssTagHandler(el, data) {
+	/**
+	 * Is passed the element.createStream() stream for each link element
+	 *
+	 * @param {Stream} stream
+	 * @param {Object} data
+	 */
+	function cssTagHandler(stream, data) {
 		var relPath = cssOutputFilename(null, data.src);
-		el.createStream({outer: true})
-			.end('<link rel="stylesheet" type="text/css" href="' + relPath + '" />');
+		stream.end('<link rel="stylesheet" type="text/css" href="' + relPath + '" />');
 	}
 
+	/**
+	 * Does side effects to when link css tags are parsed
+	 *
+	 * @param {Array} data
+	 */
 	function cssFileHandler(data) {
 		async.waterfall([
 			assets.mapFileContents.bind(null, appRoot, null, data),
@@ -47,18 +48,17 @@ function buildDev(inputFile, outputRoot, appRoot) {
 		});
 	};
 
-	var cssParse = assets.parse('link', 'href', cssFileHandler, cssTagHandler);
+	mkdirp.sync(outputRoot);
+	var cssParser = assets.parse('link', 'href', cssFileHandler, cssTagHandler);
 	var inputStream = fs.createReadStream(inputFile);
-	inputStream.pipe(cssParse);
+	var output = fs.createWriteStream(OUTPUT_ROOT + '/index.html')
+
+	fs.createReadStream(inputFile)
+		.pipe(cssParser)
+		.pipe(output);
 
 	console.log("BUILD STARTING");
 	console.log("OUTPUT ROOT: %s", outputRoot);
-	//createOutputDir(outputRoot, function() {
-		//fs.createReadStream(inputFile)
-			//.pipe(sassify(outputRoot, appRoot))
-			//.pipe(concatCss(outputRoot, appRoot))
-			//.pipe(fs.createWriteStream(outputFile));
-	//});
 }
 
 var ENV         = process.argv[2];
@@ -68,6 +68,7 @@ var OUTPUT_ROOT = __dirname + '/build/' + ENV;
 
 if (ENV == 'dev') {
 	rimraf(OUTPUT_ROOT, function() {
+		console.log("Removing directory %s", OUTPUT_ROOT);
 		buildDev(INPUT_FILE, OUTPUT_ROOT, APP_ROOT);
 	});
 }
