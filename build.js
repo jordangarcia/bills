@@ -1,4 +1,4 @@
-var fs = require('fs');
+var fs = require('fs.extra');
 var path = require('path');
 var mkdirp = require('mkdirp');
 var async = require('async');
@@ -15,12 +15,17 @@ function getAssetPath(src, root) {
 	return filename;
 }
 
+function scriptOutputFilename(outputRoot, src) {
+	return getAssetPath(src, outputRoot);
+}
+
 function cssOutputFilename(outputRoot, src) {
 	return replaceExt(getAssetPath(src, outputRoot), /scss|sass/i, 'css');
 }
 
 function buildDev(inputFile, outputRoot, appRoot) {
 	var cssOutputFilenameAbsolute = cssOutputFilename.bind(null, outputRoot);
+	var scriptOutputFilenameAbsolute = scriptOutputFilename.bind(null, outputRoot);
 
 	/**
 	 * Is passed the element.createStream() stream for each link element
@@ -28,9 +33,20 @@ function buildDev(inputFile, outputRoot, appRoot) {
 	 * @param {Stream} stream
 	 * @param {Object} data
 	 */
-	function cssTagHandler(stream, data) {
+	function cssTagHandler(el, stream, data) {
 		var relPath = cssOutputFilename(null, data.src);
-		stream.end('<link rel="stylesheet" type="text/css" href="' + relPath + '" />');
+		stream.end('<link rel="stylesheet" href="' + relPath + '" />');
+	}
+
+	/**
+	 * Is passed the element.createStream() stream for each script element
+	 *
+	 * @param {Stream} stream
+	 * @param {Object} data
+	 */
+	function scriptTagHandler(el, stream, data) {
+		var relPath = scriptOutputFilename(null, data.src);
+		stream.end('<script type="text/javascript" src="' + relPath + '"></script>');
 	}
 
 	/**
@@ -48,14 +64,34 @@ function buildDev(inputFile, outputRoot, appRoot) {
 		});
 	};
 
+	/**
+	 * Does side effects to when link css tags are parsed
+	 *
+	 * @param {Array} data
+	 */
+	function scriptFileHandler(data) {
+		async.waterfall([
+			assets.mapFileContents.bind(null, appRoot, null, data),
+			assets.mapOutputFilename.bind(null, scriptOutputFilenameAbsolute),
+			assets.writeFiles.bind(null, null)
+		], function(err, data) {
+			console.log("Finished JS Files");
+		});
+	};
+
 	mkdirp.sync(outputRoot);
 	var cssParser = assets.parse('link', 'href', cssFileHandler, cssTagHandler);
+	var scriptParser = assets.parse('script[src]', 'src', scriptFileHandler, scriptTagHandler);
 	var inputStream = fs.createReadStream(inputFile);
-	var output = fs.createWriteStream(OUTPUT_ROOT + '/index.html')
+	var output = fs.createWriteStream(outputRoot + '/index.html')
 
 	fs.createReadStream(inputFile)
 		.pipe(cssParser)
+		.pipe(scriptParser)
 		.pipe(output);
+
+	// copy views
+	fs.copyRecursive(appRoot + '/views', outputRoot + '/views', function() { });
 
 	console.log("BUILD STARTING");
 	console.log("OUTPUT ROOT: %s", outputRoot);
