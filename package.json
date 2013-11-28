@@ -1,5 +1,5 @@
 {
-  "name": "Bills With Friends",
+  "name": "bills-with-friends",
   "version": "0.2.0",
   "repository": "http://github.com/jordangarcia/bills.git",
   "dependencies": {
@@ -10,7 +10,8 @@
     "underscore": "~1.5.2",
     "through": "~2.3.4",
     "node-sass": "~0.7.0",
-    "connect": "~2.11.0"
+    "connect": "~2.11.0",
+    "rimraf": "~2.2.2"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
