@@ -10,11 +10,9 @@ if (env == 'dev') {
 	var outputDir = __dirname + '/build/dev';
 	build(input, appRoot, outputDir);
 	
-	if (watch) {
-		fs.watch(appRoot, function() {
-			build(input, appRoot, outputDir);
-		});
-	}
+	fs.watch(appRoot, function() {
+		build(input, appRoot, outputDir);
+	});
 } else if (env == 'prod') {
 	var build = require('./lib/build-prod');
 	var outputDir = __dirname + '/build/prod';
